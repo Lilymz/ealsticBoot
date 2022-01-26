@@ -4,8 +4,10 @@ import com.zjmx.elastic.domain.SysConfig;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 /**
- *扩展特定模块的寸尺库
+ *扩展特定模块的库
  */
 public interface SysConfigRepository extends MyBaseRepository<SysConfig,Integer> {
 
@@ -17,5 +19,5 @@ interface MyBaseRepository<T,ID> extends PagingAndSortingRepository<T,ID>{
      * @param status 状态
      * @return
      */
-    T querySysConfigByStatusEquals(Integer status);
+    List<T> querySysConfigByStatusEquals(Integer status);
 }
