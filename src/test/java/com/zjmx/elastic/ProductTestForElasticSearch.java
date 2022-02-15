@@ -1,11 +1,12 @@
 package com.zjmx.elastic;
 
 import com.zjmx.elastic.document.Product;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
-import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.search.SearchHits;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,22 +27,11 @@ public class ProductTestForElasticSearch extends ElasticBootApplicationTests{
     private RestHighLevelClient restHighLevelClient;
     @Test
     public void restCreateIndex() throws IOException {
-        CreateIndexRequest request = new CreateIndexRequest("product");
-        CreateIndexRequest mapping = request.mapping("{\n" +
-                "  \"properties\": {\n" +
-                "    \"id\": {\n" +
-                "      \"type\": \"long\"\n" +
-                "    },\n" +
-                "    \"name\": {\n" +
-                "      \"type\": \"text\"\n" +
-                "    },\n" +
-                "    \"price\": {\n" +
-                "      \"type\": \"double\"\n" +
-                "    }\n" +
-                "  }\n" +
-                "}", XContentType.JSON);
-        CreateIndexResponse createIndexResponse = restHighLevelClient.indices().create(mapping, RequestOptions.DEFAULT);
-        System.out.println(createIndexResponse.index());
+        SearchRequest request =new SearchRequest();
+        SearchRequest request1 = request.searchType(SearchType.valueOf("match_all"));
+        SearchResponse search = restHighLevelClient.search(request1, RequestOptions.DEFAULT);
+        SearchHits hits = search.getHits();
+        System.out.println(hits);
     }
     @Test
     public void optionsCreateDocument(){
