@@ -1,6 +1,6 @@
-package com.zjmx.elastic.repository;
+package com.zjmx.jpa.repository;
 
-import com.zjmx.elastic.domain.SysConfig;
+import com.zjmx.jpa.domain.SysConfig;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

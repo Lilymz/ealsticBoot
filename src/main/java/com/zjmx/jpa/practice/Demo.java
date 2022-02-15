@@ -1,4 +1,4 @@
-package com.zjmx.elastic.practice;
+package com.zjmx.jpa.practice;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;

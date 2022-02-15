@@ -1,6 +1,6 @@
-package com.zjmx.elastic.repository;
+package com.zjmx.jpa.repository;
 
-import com.zjmx.elastic.domain.SysUser;
+import com.zjmx.jpa.domain.SysUser;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;

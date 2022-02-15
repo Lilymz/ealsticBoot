@@ -1,9 +1,9 @@
-package com.zjmx.elastic;
+package com.zjmx;
 
-import com.zjmx.elastic.domain.SysUser;
-import com.zjmx.elastic.practice.Demo;
-import com.zjmx.elastic.repository.SysConfigRepository;
-import com.zjmx.elastic.repository.SysUserRepository;
+import com.zjmx.jpa.domain.SysUser;
+import com.zjmx.jpa.practice.Demo;
+import com.zjmx.jpa.repository.SysConfigRepository;
+import com.zjmx.jpa.repository.SysUserRepository;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

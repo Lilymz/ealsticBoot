@@ -1,4 +1,4 @@
-package com.zjmx.elastic.domain;
+package com.zjmx.jpa.domain;
 
 import lombok.Getter;
 import lombok.Setter;
