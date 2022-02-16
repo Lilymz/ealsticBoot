@@ -6,6 +6,7 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,12 @@ public class ElastiSearchAdvancedQueryTest extends ElasticBootApplicationTests{
         sourceBuilder.query(QueryBuilders.matchAllQuery());
         request.source(sourceBuilder);
         SearchResponse search = restHighLevelClient.search(request, RequestOptions.DEFAULT);
+        // 查询匹配
+        SearchHits hits = search.getHits();
+        System.out.println("took:" + search.getTook());
+        System.out.println("timeout:" + search.isTimedOut());
+        System.out.println("total:" + hits.getTotalHits());
+        System.out.println("MaxScore:" + hits.getMaxScore());
         for (SearchHit hit : search.getHits()) {
             System.out.println(hit.getSourceAsString());
         }
@@ -47,17 +54,37 @@ public class ElastiSearchAdvancedQueryTest extends ElasticBootApplicationTests{
 
     }
     /**
-     * 精准查询（和sql有区别）
+     * 精准查询(这个精准查询很特别，注意看官方解释）(不进行分词，不适合能够分词的fields)
      */
     @Test
     public void termQuery() throws IOException{
-
+        SearchRequest request =new SearchRequest();
+        request.indices("product");
+        // 构建查询的请求体
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.query(QueryBuilders.termQuery("shortName", ""));
+        request.source(sourceBuilder);
+        SearchResponse response = restHighLevelClient.search(request, RequestOptions.DEFAULT);
+        // 查询匹配
+        SearchHits hits = response.getHits();
+        System.out.println("took:" + response.getTook());
+        System.out.println("timeout:" + response.isTimedOut());
+        System.out.println("total:" + hits.getTotalHits());
+        System.out.println("MaxScore:" + hits.getMaxScore());
+        System.out.println("hits========>>");
+        for (SearchHit hit : hits) {
+            //输出每条查询的结果信息
+            System.out.println(hit.getSourceAsString());
+        }
     }
     /**
-     *多条件查询（为提供的字段名称和文本创建类型为“BOOL_PREFIX”的文本查询）
+     *多条件查询
      */
     @Test
     public void boolQuery() throws IOException{
+        SearchRequest request =new SearchRequest();
+        request.indices("product");
+        // 构建查询的请求体
 
     }
     /**
@@ -65,7 +92,24 @@ public class ElastiSearchAdvancedQueryTest extends ElasticBootApplicationTests{
      */
     @Test
     public void fuzzyQuery() throws IOException{
-
+        SearchRequest request =new SearchRequest();
+        request.indices("product");
+        // 构建查询的请求体
+        SearchSourceBuilder builder = new SearchSourceBuilder();
+        builder.query(QueryBuilders.fuzzyQuery("shortName", "k"));
+        request.source(builder);
+        SearchResponse response = restHighLevelClient.search(request, RequestOptions.DEFAULT);
+        // 查询匹配
+        SearchHits hits = response.getHits();
+        System.out.println("took:" + response.getTook());
+        System.out.println("timeout:" + response.isTimedOut());
+        System.out.println("total:" + hits.getTotalHits());
+        System.out.println("MaxScore:" + hits.getMaxScore());
+        System.out.println("hits========>>");
+        for (SearchHit hit : hits) {
+            //输出每条查询的结果信息
+            System.out.println(hit.getSourceAsString());
+        }
     }
     /**
      * 前缀查询
