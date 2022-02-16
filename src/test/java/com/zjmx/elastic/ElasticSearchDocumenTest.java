@@ -2,8 +2,11 @@ package com.zjmx.elastic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zjmx.elastic.document.Product;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
@@ -35,8 +38,15 @@ public class ElasticSearchDocumenTest extends ElasticBootApplicationTests{
         System.out.println(index.getResult ());
     }
     /**
-     * 查询
+     * 查询(未完成)
      */
+    @Test
+    public void queryDoc() throws IOException {
+        GetRequest request =new GetRequest();
+        request.index("product").id("2");
+        GetResponse get = restHighLevelClient.get(request,RequestOptions.DEFAULT);
+        System.out.println(get.isExists());
+    }
     /**
      * 更新
      */

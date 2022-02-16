@@ -29,6 +29,7 @@ public class ByZeroQueue implements Runnable{
                     System.out.println("任务："+(countDownLatch.getCount())+"正在排队执行中.....");
                     TimeUnit.SECONDS.sleep(10);
                     retry(longTask);
+                    break;
                 }
                 poolExecutor.execute(longTask);
             }catch (Exception e){
